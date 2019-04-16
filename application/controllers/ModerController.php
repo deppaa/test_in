@@ -128,11 +128,6 @@ class ModerController extends Controller
 
 	public function editAction()
 	{
-		$vars = [
-			'editCourse' => $this->model->editCourse($this->route['id'])[0],
-			'editTask' => $this->model->editTask($this->route['id']),
-		];
-
 		if (!empty($_POST))
 		{
 			if (!$this->model->taskValidate($_POST)) 
@@ -144,6 +139,11 @@ class ModerController extends Controller
 				$this->view->messageAndLocation('success', 'Курс обновлен', 'moder/tasks');
 			}
 		}
+
+		$vars = [
+			'editCourse' => $this->model->editCourse($this->route['id'])[0],
+			'editTask' => $this->model->editTask($this->route['id']),
+		];
 
 		$this->view->render('Редактировать', $vars);
 	}
