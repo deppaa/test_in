@@ -4,7 +4,7 @@
       <div class="col-md-2"></div>
       <div class="col-md-8">
         <h2 class="add-title">Добавить курс</h2>
-        <form action="/moder/edit" method="post">
+        <form action="/moder/edit/<?php echo $editCourse['id']; ?>" method="post">
           <div class="form-group">
             <input class="form-control" type="text" placeholder="Номер группы" value="<?php echo htmlspecialchars($editCourse['number_group'], ENT_QUOTES); ?>" name="task-number_group">
           </div>
