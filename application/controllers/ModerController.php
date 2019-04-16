@@ -140,6 +140,11 @@ class ModerController extends Controller
 			}
 		}
 
+		if (!$this->model->istaskExist($this->route['id']))
+		{
+			$this->view->errorCode(404);
+		}
+
 		$vars = [
 			'editCourse' => $this->model->editCourse($this->route['id'])[0],
 			'editTask' => $this->model->editTask($this->route['id']),
