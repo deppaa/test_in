@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-8">
-        <h2 class="add-title">Добавить курс</h2>
+        <h2 class="add-title">Редактировать курс</h2>
         <form action="/moder/edit/<?php echo $editCourse['id']; ?>" method="post">
           <div class="form-group">
             <input class="form-control" type="text" placeholder="Номер группы" value="<?php echo htmlspecialchars($editCourse['number_group'], ENT_QUOTES); ?>" name="task-number_group">
@@ -94,7 +94,7 @@
             <button type="button" class="btn btn-success" id="add-task-js"><i class="fas fa-plus"></i></button>
             <button type="button" class="btn btn-danger" id="del-task-js"><i class="far fa-trash-alt"></i></button>
           </div>
-          <p><input class="btn btn-primary" type="submit" value="Добавить"></p>
+          <p><input class="btn btn-primary" type="submit" value="Редактировать"></p>
         </form>
       </div>
       <div class="col-md-2"></div>

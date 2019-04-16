@@ -442,15 +442,16 @@ class Moder extends Model
 	{
 		$params = [
 			'id' => $id,
+			'number_group' => $post['task-number_group'],
+			'title' => $post['task-name'],
+			'description' => $post['task-desk'],
+			'lang' => $post['lang'],
+			'date' => date("Y-m-d H:i:s"),
 		];
-		
-		$number_group = $post['task-number_group'];
-		$title = $post['task-name'];
-		$description = $post['task-desk'];
-		$lang = $post['lang'];
-		$date = date("Y-m-d H:i:s");
 
-		$this->db->query( 'UPDATE course SET number_group = '.$number_group.', title = '. $title.', description = '. $description.', lang = '.$lang.', date = '.$date.' WHERE id = :id', $params);
+		$this->db->query('UPDATE course SET number_group = :number_group, title = :title, description = :description, lang = :lang, date = :date WHERE id = :id', $params);
+		//$this->db->query("UPDATE course SET number_group = $number_group, title = $title, description = $description, lang = $lang, date = $date WHERE id = :id", $params);
+
 
 		/*$this->db->query('DELETE FROM task WHERE course_id = :id', $params);
 
