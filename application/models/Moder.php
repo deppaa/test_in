@@ -450,14 +450,45 @@ class Moder extends Model
 		];
 
 		$this->db->query('UPDATE course SET number_group = :number_group, title = :title, description = :description, lang = :lang, date = :date WHERE id = :id', $params);
-		//$this->db->query("UPDATE course SET number_group = $number_group, title = $title, description = $description, lang = $lang, date = $date WHERE id = :id", $params);
 
+		$progres = editTask($id);
 
-		/*$this->db->query('DELETE FROM task WHERE course_id = :id', $params);
-
-		for ($i = 1; $i <= $post['count']; $i++) 
+		if (is_array($progres)) 
 		{
-			$paramsTask = [
+			for ($i = 1; $i < count($progres); $i++) 
+			{
+				$params = [
+					'id' => '',
+					'course_id' => $id,
+					'ball' => $post['task-ball' . $i],
+					'title' => $post['task-title' . $i],
+					'text' => $post['task-text' . $i],
+					'test1_in' => $post['input-text1-' . $i],
+					'test1_out' => $post['output-text1-' . $i],
+					'test2_in' => $post['input-text2-' . $i],
+					'test2_out' => $post['output-text2-' . $i],
+					'test3_in' => $post['input-text3-' . $i],
+					'test3_out' => $post['output-text3-' . $i],
+					'solved' => '0',
+				];
+
+				$this->db->query('UPDATE course SET number_group = :number_group, title = :title, description = :description, lang = :lang, date = :date WHERE id = :id', $params);
+			}
+			taskSelect($id, $post, count($progres));
+		}
+		else
+		{
+			taskSelect($id, $post, 1);
+		}
+
+		return true;
+	}
+
+	public function taskSelect($id, $post, $path)
+	{
+		for ($i = $path; $i <= $post['count']; $i++) 
+		{
+			$params = [
 				'id' => '',
 				'course_id' => $id,
 				'ball' => $post['task-ball' . $i],
@@ -472,10 +503,8 @@ class Moder extends Model
 				'solved' => '0',
 			];
 
-			$this->db->query('INSERT INTO task VALUES (:id, :course_id, :ball, :title, :text, :test1_in, :test1_out, :test2_in, :test2_out, :test3_in, :test3_out, :solved)', $paramsTask);
-		}*/
-
-		return true;
+			$this->db->query('INSERT INTO task VALUES (:id, :course_id, :ball, :title, :text, :test1_in, :test1_out, :test2_in, :test2_out, :test3_in, :test3_out, :solved)', $params);
+		}
 	}
 }
  
