@@ -45,6 +45,11 @@ return
 		'controller' => 'account',
 		'action' => 'course',
 	],
+
+	'account/allcourse' => [
+		'controller' => 'account',
+		'action' => 'allcourse',
+	],
 	
 	'account/confirm/{token:\w+}' => [
 		'controller' => 'account',
