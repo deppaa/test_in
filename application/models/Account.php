@@ -8,6 +8,13 @@ class Account extends Model
 {
 	public $error;
 
+	public function allCourseList()
+	{
+		$params = [
+		];
+		return $this->db->row('SELECT * FROM course ORDER BY id DESC', $params);
+	}
+
 	public function courseList()
 	{
 		$params = [
