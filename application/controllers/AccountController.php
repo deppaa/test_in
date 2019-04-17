@@ -77,9 +77,9 @@ class AccountController extends Controller
 	public function allcourseAction()
 	{
 		$vars = [
-			'course' => $this->model->courseList($this->route),
+			'allCourse' => $this->model->allCourseList(),
 		];
-		$this->view->render( 'Все задания', $vars);
+		$this->view->render('Все задания', $vars);
 	}
 
 	public function courseAction()
