@@ -74,6 +74,14 @@ class AccountController extends Controller
 		$this->view->redirect('account/login');
 	}
 
+	public function allcourseAction()
+	{
+		$vars = [
+			'course' => $this->model->courseList($this->route),
+		];
+		$this->view->render( 'Все задания', $vars);
+	}
+
 	public function courseAction()
 	{
 		$vars = [
