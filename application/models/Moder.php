@@ -451,11 +451,11 @@ class Moder extends Model
 
 		$this->db->query('UPDATE course SET number_group = :number_group, title = :title, description = :description, lang = :lang, date = :date WHERE id = :id', $params);
 
-		$progres = editTask($id);
+		$progres = $this->editTask($id);
 
 		if (is_array($progres)) 
 		{
-			for ($i = 1; $i < count($progres); $i++) 
+			for ($i = 1; $i < count($progres)+1; $i++) 
 			{
 				$params = [
 					'id' => '',
@@ -472,13 +472,13 @@ class Moder extends Model
 					'solved' => '0',
 				];
 
-				$this->db->query('UPDATE course SET number_group = :number_group, title = :title, description = :description, lang = :lang, date = :date WHERE id = :id', $params);
+				//$this->db->query( 'UPDATE course SET ball = :ball, title = :title, text = :text, test1_in = :test1_in, test1_out = :test1_out, test2_in = :test2_in, test2_out = :test2_out, test3_in = :test3_in, test3_out = :test3_out WHERE id = :id', $params);
 			}
-			taskSelect($id, $post, count($progres));
+			$this->taskSelect($id, $post, count($progres)+1);
 		}
 		else
 		{
-			taskSelect($id, $post, 1);
+			$this->taskSelect($id, $post, 1);
 		}
 
 		return true;
@@ -503,7 +503,7 @@ class Moder extends Model
 				'solved' => '0',
 			];
 
-			$this->db->query('INSERT INTO task VALUES (:id, :course_id, :ball, :title, :text, :test1_in, :test1_out, :test2_in, :test2_out, :test3_in, :test3_out, :solved)', $params);
+			//$this->db->query('INSERT INTO task VALUES (:id, :course_id, :ball, :title, :text, :test1_in, :test1_out, :test2_in, :test2_out, :test3_in, :test3_out, :solved)', $params);
 		}
 	}
 }
