@@ -41,13 +41,13 @@
                     <h2>Задание <?php echo $num; ?></h2>
                   </div>
                   <div class="form-group">
-                    <input class="form-control add-task_bal" type="text" placeholder="Вес задания" value="<?php echo $val['ball']; ?>" name="task-ball1">
+                    <input class="form-control add-task_bal" type="text" placeholder="Вес задания" value="<?php echo $val['ball']; ?>" name="task-ball<?php echo $num; ?>">
                   </div>
                   <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Название" value="<?php echo $val['title']; ?>" name="task-title1">
+                    <input class="form-control" type="text" placeholder="Название" value="<?php echo $val['title']; ?>" name="task-title<?php echo $num; ?>">
                   </div>
                   <div class="form-group">
-                    <textarea class="form-control add-task_desc" placeholder="Текст задания" name="task-text1"><?php echo $val['text']; ?></textarea>
+                    <textarea class="form-control add-task_desc" placeholder="Текст задания" name="task-text<?php echo $num; ?>"><?php echo $val['text']; ?></textarea>
                   </div>
                   <div class="form-group">
                     <p style='color: #b3b3b3;'>Выходные данные необходимо вводить через ENTER</p>
@@ -57,10 +57,10 @@
                   </div>
                   <div class="add-task_test d-flex">
                     <div class="form-group">
-                      <textarea class="form-control" placeholder="Входные данные" name="input-text1-1"><?php echo $val['test1_in']; ?></textarea>
+                      <textarea class="form-control" placeholder="Входные данные" name="input-text1-<?php echo $num; ?>"><?php echo $val['test1_in']; ?></textarea>
                     </div>
                     <div class="form-group">
-                      <textarea class="form-control" placeholder="Выходные данные" name="output-text1-1"><?php echo $val['test1_out']; ?></textarea>
+                      <textarea class="form-control" placeholder="Выходные данные" name="output-text1-<?php echo $num; ?>"><?php echo $val['test1_out']; ?></textarea>
                     </div>
                   </div>
                   <div class="form-group">
@@ -68,10 +68,10 @@
                   </div>
                   <div class="add-task_test d-flex">
                     <div class="form-group">
-                      <textarea class="form-control" placeholder="Входные данные" name="input-text2-1"><?php echo $val['test2_in']; ?></textarea>
+                      <textarea class="form-control" placeholder="Входные данные" name="input-text2-<?php echo $num; ?>"><?php echo $val['test2_in']; ?></textarea>
                     </div>
                     <div class="form-group">
-                      <textarea class="form-control" placeholder="Выходные данные" name="output-text2-1"><?php echo $val['test2_out']; ?></textarea>
+                      <textarea class="form-control" placeholder="Выходные данные" name="output-text2-<?php echo $num; ?>"><?php echo $val['test2_out']; ?></textarea>
                     </div>
                   </div>
                   <div class="form-group">
@@ -79,10 +79,10 @@
                   </div>
                   <div class="add-task_test d-flex">
                     <div class="form-group">
-                      <textarea class="form-control" placeholder="Входные данные" name="input-text3-1"><?php echo $val['test3_in']; ?></textarea>
+                      <textarea class="form-control" placeholder="Входные данные" name="input-text3-<?php echo $num; ?>"><?php echo $val['test3_in']; ?></textarea>
                     </div>
                     <div class="form-group">
-                      <textarea class="form-control" placeholder="Выходные данные" name="output-text3-1"><?php echo $val['test3_out']; ?></textarea>
+                      <textarea class="form-control" placeholder="Выходные данные" name="output-text3-<?php echo $num; ?>"><?php echo $val['test3_out']; ?></textarea>
                     </div>
                   </div>
                 </div>
