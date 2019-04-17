@@ -9,6 +9,7 @@ return [
 		'profile',
 		'edit',
 		'course',
+		'allcourse',
 	],
 	'guest' => [
 		'login',
