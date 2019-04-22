@@ -57,7 +57,7 @@ class AccountController extends Controller
 				$this->view->message('error', $moder->error);
 			}
 			$id = $moder->registr($_POST, 'account');
-			//$moder->loadimg($_FILES['foto']['tmp_name'], $id, 'account');
+			$moder->loadimg($_FILES['foto']['tmp_name'], $id, 'account');
 			$this->view->message('success', 'Регистрация завершена (Подтвердите E-mail)');
 			$this->view->redirect('moder/login');
 		}
@@ -94,13 +94,26 @@ class AccountController extends Controller
 	{
 		$vars = [
 			'data' => $this->model->userProfile()[0],
+			'coursDataProgres' => $this->model->coursDataProgres(),
+			'personalCoursProgres' => $this->model-> personalCoursProgres(),
 		];
 		$this->view->render('Профиль', $vars);
 	}
 
 	public function editAction()
 	{
-		$this->view->render('Редактировать профиль');
+		if (!empty($_POST))
+		{
+			if ($this->model-> editProfile($_POST))
+			{
+				$this->view->messageAndLocation('success', 'Профиль успешно отредактирован', 'account/profile');
+			}
+		}
+
+		$vars = [
+			'data' => $this->model->userProfile()[0],
+		];
+		$this->view->render('Редактировать профиль', $vars);
 	}
 
 	public function logoutAction()

@@ -45,8 +45,10 @@ class ModerController extends Controller
 
 	public function conditionAction()
 	{
-
-		$this->view->render('Условие');
+		$vars = [
+			'task' => $this->model->taskInfo($this->route['id'])[0],
+		];
+		$this->view->render('Условие', $vars);
 	}
 
 	public function loginAction()
@@ -95,9 +97,8 @@ class ModerController extends Controller
 				$this->view->message('error', $this->model->error);
 			}
 			$id = $this->model->registr($_POST, 'moder');
-			//$this->model->loadimg($_FILES['foto']['tmp_name'], $id, 'Moder');
-			$this->view->message('success', 'Регистрация завершена (Подтвердите E-mail)');
-			$this->view->redirect('moder/login');
+			$this->model->loadimg($_FILES['foto']['tmp_name'], $id, 'Moder');
+			$this->view->messageAndLocation('success', 'Регистрация завершена (Подтвердите E-mail)', 'moder/login');
 		}
 		$this->view->render('Регистрация преподователей');
 	}
@@ -111,7 +112,7 @@ class ModerController extends Controller
 				$this->view->message('error', $this->model->error);
 			}
 			$id = $this->model->taskadd($_POST);
-			//$this->model->loadimg($_FILES['fon']['tmp_name'], $id, 'add');
+			$this->model->loadimg($_FILES['fon']['tmp_name'], $id, 'add');
 			$this->view->messageAndLocation('success', 'Курс добавлен', 'moder/tasks');
 		}
 		$this->view->render('Добавить курс');
@@ -134,10 +135,8 @@ class ModerController extends Controller
 			{
 				$this->view->message('error', $this->model->error);
 			}
-			if($this->model->updateCourse($_POST, $this->route['id']))
-			{
-				$this->view->messageAndLocation('success', 'Курс обновлен', 'moder/tasks');
-			}
+			$this->model->updateCourse($_POST, $this->route['id']);
+			$this->view->messageAndLocation('success', 'Курс обновлен', 'moder/tasks');
 		}
 
 		if (!$this->model->istaskExist($this->route['id']))

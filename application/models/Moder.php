@@ -129,7 +129,7 @@ class Moder extends Model
 
 	public function loadimg($path, $id, $type)
 	{
-		$img = new Imagick($path);
+		/*$img = new Imagick($path);
 		if ($type == 'add') {
 				$img->cropThumbnailImage(1024, 768);
 				$img->setImageCompressionQuality(80);
@@ -142,7 +142,7 @@ class Moder extends Model
 				$img->cropThumbnailImage(250, 250);
 				$img->setImageCompressionQuality(80);
 				$img->writeImage('public/avatarsAccount/' . $id . '.jpg');
-			}
+			}*/
 	}
 
 	public function checkLoginExist($login, $type)
@@ -375,7 +375,6 @@ class Moder extends Model
 		}
 	}
 		
-
 	public function courseList()
 	{
 		$params = [
@@ -386,10 +385,28 @@ class Moder extends Model
 
 	public function tasksList($id)
 	{
+
 		$params = [
-			'course_id' => $id
+			'course_id' => $id,
 		];
-		return $this->db->row('SELECT * FROM task WHERE course_id = :course_id', $params);
+		$result = $this->db->row('SELECT * FROM task WHERE course_id = :course_id', $params);
+
+		$group_num = $this->nameGroup($id)[0];
+
+		$params = [
+			'group_name' => $group_num['number_group'],
+		];
+
+		$path = $this->db->row('SELECT * FROM account WHERE group_name = :group_name', $params);
+
+		for ($i=0; $i < count($result) ; $i++) 
+		{ 
+			$result[$i]['gLen'] = count($path)-$result[$i]['solved'];
+			$result[$i]['prosent'] = $result[$i]['solved']/(count($path)/100);
+		}
+
+		return $result;
+
 	}
 
 	public function nameGroup($id)
@@ -438,6 +455,14 @@ class Moder extends Model
 		return $this->db->row('SELECT * FROM task WHERE course_id = :course_id', $params);
 	}
 
+	public function taskInfo($id)
+	{
+		$params = [
+			'id' => $id,
+		];
+		return $this->db->row('SELECT * FROM task WHERE id = :id', $params);
+	}
+
 	public function updateCourse($post, $id)
 	{
 		$params = [
@@ -455,11 +480,10 @@ class Moder extends Model
 
 		if (is_array($progres)) 
 		{
-			for ($i = 1; $i < count($progres)+1; $i++) 
+			for ($i = 1; $i <= count($progres); $i++) 
 			{
 				$params = [
-					'id' => '',
-					'course_id' => $id,
+					'id' => $progres[$i-1]['id'],
 					'ball' => $post['task-ball' . $i],
 					'title' => $post['task-title' . $i],
 					'text' => $post['task-text' . $i],
@@ -472,7 +496,7 @@ class Moder extends Model
 					'solved' => '0',
 				];
 
-				//$this->db->query( 'UPDATE course SET ball = :ball, title = :title, text = :text, test1_in = :test1_in, test1_out = :test1_out, test2_in = :test2_in, test2_out = :test2_out, test3_in = :test3_in, test3_out = :test3_out WHERE id = :id', $params);
+				$this->db->query('UPDATE task SET ball = :ball, title = :title, text = :text, test1_in = :test1_in, test1_out = :test1_out, test2_in = :test2_in, test2_out = :test2_out, test3_in = :test3_in, test3_out = :test3_out, solved = :solved WHERE id = :id', $params);
 			}
 			$this->taskSelect($id, $post, count($progres)+1);
 		}
@@ -503,7 +527,7 @@ class Moder extends Model
 				'solved' => '0',
 			];
 
-			//$this->db->query('INSERT INTO task VALUES (:id, :course_id, :ball, :title, :text, :test1_in, :test1_out, :test2_in, :test2_out, :test3_in, :test3_out, :solved)', $params);
+			$this->db->query('INSERT INTO task VALUES (:id, :course_id, :ball, :title, :text, :test1_in, :test1_out, :test2_in, :test2_out, :test3_in, :test3_out, :solved)', $params);
 		}
 	}
 }

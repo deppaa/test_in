@@ -1,9 +1,8 @@
 var count = $("#count").val();
-console.log(count);
 $(document).ready(function(){
         $("#add-task-js").click(function(){
-        	count++;
-			var newLi = document.createElement('div');
+			count++;
+			var newLi = document.getElementById("list");
 			var allhtml= '<div class="add-task">\
 							<div class="form-group">\
 								<h2>Задание ' + count + '</h2>\
@@ -51,7 +50,6 @@ $(document).ready(function(){
 								</div>\
 						</div>';
 			newLi.innerHTML += allhtml;
-			list.insertBefore(newLi, list.children[count]);
 			$("#count").val(count);
 		});
 	});
