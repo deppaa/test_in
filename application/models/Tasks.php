@@ -153,14 +153,18 @@ class Tasks extends Model
 			$output[$i] = $api -> jsonAPI($lang['lang'], $path, $data[$i]['test'.$i.'_in']);
 			do{
 				$sl = 0;
-				sleep(5);
+				sleep(2);
 				$sl++;
 				if ($sl == 12) 
 				{
 					break;
 				}
 			}while (is_array($output[$i]) == false);
-			if (str_replace("\r\n","",$output[$i]['Result']) == $data[$i]['test'.$i.'_out']) 
+
+			$rt = str_replace("\r", "", str_replace("\n", "", $output[$i]['Result']));
+			$dr = $data[$i]['test'.$i.'_out'];
+			
+			if ($rt == $dr) 
 			{
 				$check[$i] = true;
 			}

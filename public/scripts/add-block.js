@@ -1,9 +1,10 @@
 var count = $("#count").val();
-$(document).ready(function(){
-        $("#add-task-js").click(function(){
-			count++;
-			var newLi = document.getElementById("list");
-			var allhtml= '<div class="add-task">\
+console.log(count);
+$(document).ready(function () {
+	$("#add-task-js").click(function () {
+		count++;
+		var newLi = document.createElement('div');
+		var allhtml = '<div class="add-task">\
 							<div class="form-group">\
 								<h2>Задание ' + count + '</h2>\
 								</div><div class="form-group">\
@@ -49,18 +50,18 @@ $(document).ready(function(){
 									</div>\
 								</div>\
 						</div>';
-			newLi.innerHTML += allhtml;
-			$("#count").val(count);
-		});
+		newLi.innerHTML += allhtml;
+		list.insertBefore(newLi, list.children[count]);
+		$("#count").val(count);
 	});
+});
 
-$(document).ready(function(){
-        $("#del-task-js").click(function(){
-        	if (count > 1) 
-        	{
-        		list.removeChild(list.lastChild);
-      			count--;
-      			$("#count").val(count);
-        	}
-		});
+$(document).ready(function () {
+	$("#del-task-js").click(function () {
+		if (count > 1) {
+			list.removeChild(list.lastChild);
+			count--;
+			$("#count").val(count);
+		}
 	});
+});

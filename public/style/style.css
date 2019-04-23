@@ -213,7 +213,6 @@ progress
 }
 progress::-webkit-progress-bar 
 {
-    width: 80%;
     height: 15px;
     border-radius: 9px;
     background: #f1f1f1;
@@ -229,7 +228,7 @@ progress::-moz-progress-bar
     background: #009846;
 }
 
-.profile-bad_progress::-webkit-progress-value 
+/*.profile-bad_progress::-webkit-progress-value 
 {
     background: #E31E24;
 }
@@ -237,7 +236,7 @@ progress::-moz-progress-bar
 .profile-bad_progress::-moz-progress-bar 
 {
     background: #E31E24;
-}
+}*/
 
 /*статистика*/
 
@@ -663,6 +662,17 @@ p
 .stud-fio
 {
 	margin: 4px 0 0 6px;
+}
+
+.dial-text
+{
+	font-size: 0.5em;
+  line-height: 1;
+  text-anchor: middle;
+  -moz-transform: translateY(-0.25em);
+  -ms-transform: translateY(-0.25em);
+  -webkit-transform: translateY(-0.25em);
+  transform: translateY(-0.25em);
 }
 
 

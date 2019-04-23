@@ -38,7 +38,7 @@
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<h2 class="profile-stat_text">Общий рейтинг</h2>
-					<progress class="lineshem" value="<?php echo $personalCoursProgres; ?>" max="100"></progress>
+					<progress class="lineshem" max="100" value="<?php echo $personalCoursProgres; ?>"></progress>
 					<span class="progress-value"><?php echo $personalCoursProgres; ?>/100%</span>
 				</div>
 				<div class="col-md-2"></div>
@@ -55,7 +55,13 @@
 					<?php foreach ($coursDataProgres as $val) : ?>
 						<div class="col-lg-4 col-md-4 col-sm-6">
 							<div class="content_block_profile">
-								<div class="dial blue" data-width="180" data-lineWidth="41"><?php echo $val['ball']; ?></div>
+								<!--<div class="dial blue" data-width="180" data-lineWidth="41"></div>-->
+								<svg width="100%" height="100%" viewBox="0 0 42 42" class="donut">
+									<circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+									<circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="3"></circle>
+									<circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#1390d4" stroke-width="3" stroke-dasharray="<?php echo $val['ball']; ?> <?php echo 100 - $val['ball']; ?>" stroke-dashoffset="0"></circle>
+									<text x="50%" y="60%" class="dial-text"><?php echo $val['ball']; ?>%</text>
+								</svg>
 								<h2 class="content_block_info-title"><?php echo $val['name']; ?></h2>
 							</div>
 						</div>

@@ -402,7 +402,13 @@ class Moder extends Model
 		for ($i=0; $i < count($result) ; $i++) 
 		{ 
 			$result[$i]['gLen'] = count($path)-$result[$i]['solved'];
-			$result[$i]['prosent'] = $result[$i]['solved']/(count($path)/100);
+			if ($result[$i]['solved'] != 0)
+			{
+				$result[$i]['prosent'] = $result[$i]['solved'] / (count($path) / 100);
+			}
+			else {
+				$result[$i]['prosent'] = 0;
+			}
 		}
 
 		return $result;
