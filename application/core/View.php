@@ -47,7 +47,7 @@ class View
 
 	public function render($title, $vars = [])
 	{
-		if ($this->sessionExists() != 'default') {
+		if ($this->sessionExists() != 'default' && $this->sessionExists() != 'admin') {
 			$userinfo = $this->userInfo();
 			extract($userinfo);
 		}

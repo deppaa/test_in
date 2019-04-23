@@ -87,6 +87,7 @@ class Account extends Model
 		$params1 = 0;
 		$params2 = 0;
 		$course = $this->courseList();
+		$task = [];
 
 		for ($i = 0; $i < count($course); $i++)
 		{
@@ -98,9 +99,15 @@ class Account extends Model
 
 			$task = $this->db->row('SELECT * FROM task WHERE course_id = :course_id', $params);
 
-			for ($a = 0; $a < count($task); $a++) 
+			if (count($task) != 0) 
 			{
+				for ($a = 0; $a < count($task); $a++)
+				{
 					$oneP += $task[$a]['ball'];
+				}
+			}
+			else {
+				$oneP = 0;
 			}
 
 			$path[$i]['oneP'] = $oneP;
@@ -128,7 +135,13 @@ class Account extends Model
 			$params2 += $path2[$i]['ball'];
 		}
 
-		return round($params2 / ($params1 / 100));
+		if (count($task) != 0) {
+			return round($params2 / ($params1 / 100));
+		}
+		else {
+			return 0;
+		}
+		
 	}
 
 	public function editProfile($post)

@@ -46,7 +46,7 @@
                       <h3><?php echo htmlspecialchars($val['ball'], ENT_QUOTES); ?></h3>
                     </div>
                     <div class="col-md-3 d-flex">
-                      <progress value="<?php echo htmlspecialchars($val['prosent'], ENT_QUOTES); ?>" max="100"></progress>
+                      <progress max="100" value="<?php echo htmlspecialchars($val['prosent'], ENT_QUOTES); ?>"></progress>
                       <span class="progress-value"><?php echo htmlspecialchars($val['prosent'], ENT_QUOTES); ?>%</span>
                     </div>
                     <div class="col-md-2">

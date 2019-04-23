@@ -68,7 +68,7 @@ return
 		'action' => 'stat',
 	],
 
-	'admin/edit' => [
+	'admin/edit/{id:\d+}' => [
 		'controller' => 'admin',
 		'action' => 'edit',
 	],
@@ -78,9 +78,14 @@ return
 		'action' => 'logout',
 	],
 
-	'admin/delate' => [
+	'admin/delate/{id:\d+}' => [
 		'controller' => 'admin',
 		'action' => 'delate',
+	],
+
+	'admin/tasks' => [
+		'controller' => 'admin',
+		'action' => 'tasks',
 	],
 
 	//ModerController
