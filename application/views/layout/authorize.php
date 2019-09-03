@@ -42,9 +42,6 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="nav navbar-nav">
-          <li>
-            <a class="nav-link" href="/">Главная</a>
-          </li>
           <li class="dropdown">
             <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Задания <span class="caret"></span></a>
             <ul class="dropdown-menu">

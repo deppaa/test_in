@@ -675,6 +675,12 @@ p
   transform: translateY(-0.25em);
 }
 
+.full
+{
+	padding: 30px;
+	height: 100vh;
+}
+
 
 @media screen and (max-width: 991px)
 {

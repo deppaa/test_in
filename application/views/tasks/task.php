@@ -16,8 +16,6 @@
 				<div class="col">
 					<div class="edit">
 						<button id="run"><i class="fas fa-play"></i></button>
-						<button id=""><i class="fas fa-undo-alt"></i></button>
-						<button class=""><i class="fas fa-redo-alt"></i></button>
 					</div>
 					<textarea name="code" class="code" id="code"><?php echo $structure['contents']; ?></textarea>
 					<div class="d-flex inout">

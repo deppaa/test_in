@@ -42,7 +42,7 @@
 					<li class="dropdown">
 						<a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Профиль <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a class="nav-link" href="#">Профиль</a></li>
+							<li><a class="nav-link" href="#">Редактировать</a></li>
 							<li class="divider"></li>
 							<li><a class="nav-link" href="/moder/logout">Выход</a></li>
 						</ul>

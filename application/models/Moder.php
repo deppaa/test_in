@@ -129,7 +129,7 @@ class Moder extends Model
 
 	public function loadimg($path, $id, $type)
 	{
-		/*$img = new Imagick($path);
+		$img = new Imagick($path);
 		if ($type == 'add') {
 				$img->cropThumbnailImage(1024, 768);
 				$img->setImageCompressionQuality(80);
@@ -142,7 +142,7 @@ class Moder extends Model
 				$img->cropThumbnailImage(250, 250);
 				$img->setImageCompressionQuality(80);
 				$img->writeImage('public/avatarsAccount/' . $id . '.jpg');
-			}*/
+			}
 	}
 
 	public function checkLoginExist($login, $type)
@@ -471,6 +471,16 @@ class Moder extends Model
 
 	public function updateCourse($post, $id)
 	{
+		if (is_uploaded_file($_FILES['fon']['tmp_name']))
+		{
+			if (file_exists('public/preview/' . $id . '.jpg'))
+			{
+				unlink('public/preview/' . $id . '.jpg');
+			}
+			
+			$this->loadimg($_FILES['fon']['tmp_name'], $id, 'add');
+		}
+
 		$params = [
 			'id' => $id,
 			'number_group' => $post['task-number_group'],

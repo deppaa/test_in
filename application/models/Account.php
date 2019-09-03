@@ -148,7 +148,7 @@ class Account extends Model
 	{
 		$moder = new Moder;
 
-		if (is_array($_FILES['foto']['tmp_name']))
+		if (is_uploaded_file($_FILES['foto']['tmp_name']))
 		{
 			unlink('public/avatarsAccount/' . $_SESSION['authorize']['id'] . '.jpg');
 			$moder->loadimg($_FILES['foto']['tmp_name'], $_SESSION['authorize']['id'], 'account');

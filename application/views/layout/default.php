@@ -28,9 +28,6 @@
 							<a class="nav-link" href="/">Главная</a>
 						</li>
 						<li class="">
-							<a class="nav-link" href="#">О сайте <span class="caret"></span></a>
-						</li>
-						<li class="">
 							<a class="nav-link" href="/account/login">Вход <span class="caret"></span></a>
 						</li>
 					</ul>

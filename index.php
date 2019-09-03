@@ -14,7 +14,7 @@ spl_autoload_register(function ($class_name)
 		require_once $path;
 	}
 });
-
+//Старт сессии
 session_start();
 
 //Зоздаем обект класса рутер
