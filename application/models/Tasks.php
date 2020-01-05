@@ -31,24 +31,21 @@ class Tasks extends Model
 		$params = [
 			'id' => $id
 		];
-		
+
 		$result = $this->db->row('SELECT * FROM task WHERE id = :id', $params)[0];
 
 		$params1 = [
 			'id' => $result['course_id']
 		];
-		
+
 		$lang = $this->db->row('SELECT lang FROM course WHERE id = :id', $params1)[0];
 
-		$filename = "public/userCode/".$id."_".$_SESSION['authorize']['id'].".txt";
-		$filename1 = "public/structure/".$lang['lang'].".txt";
+		$filename = "public/userCode/" . $id . "_" . $_SESSION['authorize']['id'] . ".txt";
+		$filename1 = "public/structure/" . $lang['lang'] . ".txt";
 
-		if (file_exists($filename))
-		{
+		if (file_exists($filename)) {
 			$structure = $this->structureCode($filename);
-		}
-		else
-		{
+		} else {
 			$structure = $this->structureCode($filename1);
 		}
 
@@ -61,10 +58,10 @@ class Tasks extends Model
 	public function structureCode($filename)
 	{
 		$fd = fopen($filename, "r");
-		$contents=fread($fd, filesize ($filename));
+		$contents = fread($fd, filesize($filename));
 
-		$contents=str_replace("\r\n","<br>",$contents);
-		fclose ($fd);
+		$contents = str_replace("\r\n", "<br>", $contents);
+		fclose($fd);
 		return [
 			'contents' => $contents
 		];
@@ -78,7 +75,7 @@ class Tasks extends Model
 
 		$task = $this->db->row('SELECT * FROM task WHERE id = :id', $params)[0];
 
-		$ball = ($task['ball']/3)*$path;
+		$ball = ($task['ball'] / 3) * $path;
 
 		$solved = $task['solved'];
 
@@ -87,16 +84,13 @@ class Tasks extends Model
 		$progress = $this->userExist($id);
 
 
-		if ($progress['true'] == 'true') 
-		{
+		if ($progress['true'] == 'true') {
 			$params2 = [
 				'id' => $progress['id'],
 			];
 
 			$this->db->query("UPDATE progress SET ball = '$ball' WHERE id = :id", $params2);
-		}
-		else
-		{
+		} else {
 
 			$surname = $_SESSION['authorize']['surname'];
 			$name = $_SESSION['authorize']['name'];
@@ -107,7 +101,7 @@ class Tasks extends Model
 				'task_id' => $task['id'],
 				'user_id' => $_SESSION['authorize']['id'],
 				'ball' => $ball,
-				'name' => $surname.' '.mb_strimwidth("$name", 0, 1).'. '.mb_strimwidth("$pat", 0, 1).'. ',
+				'name' => $surname . ' ' . mb_strimwidth("$name", 0, 1) . '. ' . mb_strimwidth("$pat", 0, 1) . '. ',
 				'date' => date("Y-m-d H:i:s"),
 			];
 
@@ -121,8 +115,8 @@ class Tasks extends Model
 
 	public function saveCode($code, $id)
 	{
-		$createfile = fopen ("public/userCode/".$id."_".$_SESSION['authorize']['id'].".txt", "w");   
-		fwrite($createfile,$code);   
+		$createfile = fopen("public/userCode/" . $id . "_" . $_SESSION['authorize']['id'] . ".txt", "w");
+		fwrite($createfile, $code);
 		fclose($createfile);
 	}
 
@@ -146,60 +140,48 @@ class Tasks extends Model
 
 		$lang = $this->db->row('SELECT lang FROM course WHERE id = :id', $param)[0];
 
-		for ($i=1; $i <= 3; $i++) 
-		{ 
-			$data[$i] = $this->db->row('SELECT test'.$i.'_in, test'.$i.'_out FROM task WHERE id = :id', $courseId)[0];
+		for ($i = 1; $i <= 3; $i++) {
+			$data[$i] = $this->db->row('SELECT test' . $i . '_in, test' . $i . '_out FROM task WHERE id = :id', $courseId)[0];
 
-			$output[$i] = $api -> jsonAPI($lang['lang'], $path, $data[$i]['test'.$i.'_in']);
-			do{
+			$output[$i] = $api->jsonAPI($lang['lang'], $path, $data[$i]['test' . $i . '_in']);
+			do {
 				$sl = 0;
 				sleep(2);
 				$sl++;
-				if ($sl == 12) 
-				{
+				if ($sl == 12) {
 					break;
 				}
-			}while (is_array($output[$i]) == false);
+			} while (is_array($output[$i]) == false);
 
 			$rt = str_replace("\r", "", str_replace("\n", "", $output[$i]['Result']));
-			$dr = $data[$i]['test'.$i.'_out'];
-			
-			if ($rt == $dr) 
-			{
+			$dr = $data[$i]['test' . $i . '_out'];
+
+			if ($rt == $dr) {
 				$check[$i] = true;
-			}
-			else
-			{
+			} else {
 				$check[$i] = false;
 			}
 		}
 
 		$amt = 0;
-		foreach ($check as $key => $val)
-		{
-			if ($val == true)
-			{
+		foreach ($check as $key => $val) {
+			if ($val == true) {
 				$amt++;
 			}
 		}
 
 		$this->progressAdd($amt, $id);
 
-		foreach ($check as $key => $val)
-		{
-			if ($val == true)
-			{
+		foreach ($check as $key => $val) {
+			if ($val == true) {
 				$result['icon'][$key] = '<i class="fas fa-check"></i>';
-			}
-			else
-			{
+			} else {
 				$result['icon'][$key] = '<i class="fas fa-times"></i>';
 			}
 		}
 
-		for ($i=1; $i <= 3; $i++)
-		{ 
-			$result['out'][$i] = str_replace("\r\n","",$output[$i]['Result']);
+		for ($i = 1; $i <= 3; $i++) {
+			$result['out'][$i] = str_replace("\r\n", "", $output[$i]['Result']);
 		}
 
 		$this->success = $result;
@@ -216,11 +198,9 @@ class Tasks extends Model
 		//запрашиваем id пользователя и id строки в таблице progress
 		$progress = $this->db->row('SELECT user_id, id  FROM progress WHERE task_id = :task_id', $params);
 		//Заменить на forech
-		for ($i=0; $i < count($progress); $i++)
-		{
+		for ($i = 0; $i < count($progress); $i++) {
 			//проверяем сзвподает ли id пользователя из таблицы с id session id
-			if ($progress[$i]['user_id'] == $_SESSION['authorize']['id']) 
-			{
+			if ($progress[$i]['user_id'] == $_SESSION['authorize']['id']) {
 				$path = [
 					'true' => 'true',
 					'id' => $progress[$i]['id'],
@@ -247,7 +227,7 @@ class Tasks extends Model
 
 		$lang = $this->db->row('SELECT lang FROM course WHERE id = :id', $param)[0];
 
-		$result = $api -> jsonAPI($lang['lang'], $code, $input);
+		$result = $api->jsonAPI($lang['lang'], $code, $input);
 
 		$this->success = $result;
 
